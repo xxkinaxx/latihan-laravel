@@ -1,3 +1,9 @@
 @extends('admin.parent')
 
-<h1>Ini Halaman Admin Index</h1>
+@section('content')
+
+<div class="container d-flex justify-content-end">
+    <a href="{{ route('admin.create') }}" class="btn btn-primary">Create Admin</a>
+</div>
+
+@endsection

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::get('/', function () {
 
 // Route for AdminController with resource
 Route::resource('admin', AdminController::class);
+
+// Route Category
+Route::resource('category', CategoryController::class);
