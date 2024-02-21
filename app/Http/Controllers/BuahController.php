@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Buah;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class BuahController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //return kearah index.blade.php
-        $category = Category::all();
-
-        return view('category.index', compact('category'));
+        return view('Buah.index');
     }
 
     /**
@@ -28,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('Buah.create');
     }
 
     /**
@@ -42,18 +39,21 @@ class CategoryController extends Controller
         //lakukan function store
         //lakukan validasi
         $this->validate($request,[
-            'name' => 'required'
+            'name' => 'required',
+            'warna' => 'required',
+            'harga' => 'required'
         ]);
 
-        //buat kondisi if else
-        if(Category::create([
+        //simpan data ke dalam database
+        Buah::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name)
-        ])){
-            return redirect()->route('category.index')->with(['success' => 'Data Berhasil Disimpan']);
-        } else {
-            return redirect()->route('category.create')->with(['error' => 'Data Gagal Disimpan']);
-        }
+            'slug' => Str::slug($request->name),
+            'harga' => $request->harga,
+            'warna' => $request->warna
+        ]);
+
+        //jika sudah maka kembali ke halaman index
+        return redirect()->route('buah.index');
     }
 
     /**
@@ -64,9 +64,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-
-        return view('category.show', compact('category'));
+        //
     }
 
     /**
@@ -100,10 +98,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-
-        $category->delete();
-
-        return redirect()->route('category.index')->with(['success' => 'Data Berhasil Dihapus']);
+        //
     }
 }
